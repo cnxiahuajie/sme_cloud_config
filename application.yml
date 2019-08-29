@@ -1,0 +1,46 @@
+server:
+  port: 0
+
+spring:
+  redis:
+    host: redisnode
+    database: 12
+    password: 1234
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://192.168.122.39:3306/sme_cloud_oauth?useUnicode=true&useSSL=false&characterEncoding=utf8
+    username: root
+    password: 1234
+    hikari:
+      minimum-idle: 5
+      maximum-pool-size: 20
+      connection-test-query: SELECT 1
+  zipkin:
+    base-url: http://zipkinnode:9411
+  sleuth:
+    trace-id128: true
+    sampler:
+      probability: 1.0
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
+
+sme:
+  cloud:
+    oauth2:
+      anon-urls: /*/anon/**,/actuator,/actuator/**
+      # 用户
+      users:
+        # 用户名: 密码
+        root: root
+
+# 数据监视器
+data-monitor:
+  rocketmq:
+    namesrv-addr: rocketmqnode:9876
